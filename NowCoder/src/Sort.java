@@ -10,8 +10,10 @@ public class Sort {
 	public static void shellSort(int[] p) {
 		int len = p.length;
 		int step = len;
-		while (step > 1) {
+		while (step != 1) {
+			System.out.println(Arrays.toString(p));	
 			step = getNewStep(step);
+			System.out.println("new step = " + step);	
 			for (int i = 0; (i + step) < len; i++) {
 				if (p[i] > p[i+step]) {
 					swap(p,i,i+step);
@@ -76,14 +78,56 @@ public class Sort {
 		System.out.println(Arrays.toString(p));		
 	}
 	
+	/**
+	 * 快速排序
+	 */
+	public static void quickSortFirstStep(int[] p, int begin, int end) {
+
+
+		int lp = begin;
+		int rp = end;
+		int keyIndex = begin;
+		if (begin > end)  {
+			return;
+		} else {
 	
+			int key = p[begin];
+			if (keyIndex == lp) {
+				if(key > p[rp]) {
+					swap(p,keyIndex,rp);
+					keyIndex = rp;
+					lp++;
+				} else {
+					rp--;
+				}
+			}
+			
+			if (keyIndex == rp) {
+				if(key < p[lp]) {
+					swap(p,keyIndex,lp);
+					keyIndex = lp;
+					rp--;
+				} else {
+					lp++;
+				}
+			}
+			System.out.println("key " + keyIndex + " lp " + lp + " rp " +rp);
+	
+		}
+
+		quickSortFirstStep(p, lp, keyIndex-1);
+		quickSortFirstStep(p, keyIndex + 1, rp);
+		System.out.println(Arrays.toString(p));
+	}
 	
 
 	public static void main(String[] args) {
-		int[] p = {56,68,59,52,72,28,96,33,24,19,0,21,-15,21};
-		popSort(p);
-		easySort(p);
-		shellSort(p);
+		int[] p = {57,68,59,52,72,28,96,33,24,19};
+
+		//shellSort(p);
+		quickSortFirstStep(p,0,9);
+		System.out.println(Arrays.toString(p));
+		
 	}
 
 }
