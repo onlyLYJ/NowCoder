@@ -81,17 +81,27 @@ public class Sort {
 	/**
 	 * 快速排序
 	 */
-	public static void quickSortFirstStep(int[] p, int begin, int end) {
+	public static void quickSort(int[] p, int begin, int end) {
 
-
-		int lp = begin;
-		int rp = end;
-		int keyIndex = begin;
-		if (begin > end)  {
-			return;
-		} else {
+		if (begin < end)  {
+			int keyIndex = findKey(p,begin,end);
+			System.out.println("keyIndex " + keyIndex );
+			
+			quickSort(p, begin, keyIndex-1);
+			quickSort(p, keyIndex+1, end);
+		}
+	}
 	
-			int key = p[begin];
+	
+	
+	private static int findKey(int[] p, int begin, int end) {
+		
+		int rp = end;
+		int lp = begin;
+		int keyIndex = begin;
+		int key = p[begin];
+		int count = 0;
+		while(lp < rp) {
 			if (keyIndex == lp) {
 				if(key > p[rp]) {
 					swap(p,keyIndex,rp);
@@ -100,6 +110,7 @@ public class Sort {
 				} else {
 					rp--;
 				}
+				count++;
 			}
 			
 			if (keyIndex == rp) {
@@ -110,22 +121,20 @@ public class Sort {
 				} else {
 					lp++;
 				}
+				count++;
 			}
-			System.out.println("key " + keyIndex + " lp " + lp + " rp " +rp);
-	
 		}
-
-		quickSortFirstStep(p, lp, keyIndex-1);
-		quickSortFirstStep(p, keyIndex + 1, rp);
-		System.out.println(Arrays.toString(p));
-	}
 	
+		System.out.println(count + " times");
+		return keyIndex;
+	}
+
 
 	public static void main(String[] args) {
 		int[] p = {57,68,59,52,72,28,96,33,24,19};
 
 		//shellSort(p);
-		quickSortFirstStep(p,0,9);
+		quickSort(p,0,9);
 		System.out.println(Arrays.toString(p));
 		
 	}
