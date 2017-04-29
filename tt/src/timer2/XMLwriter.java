@@ -120,10 +120,10 @@ public class XMLwriter {
 					int timeIndex = eventid - 1;
 					Event.setAttribute(attBEGINTIME, curr_day + timeArr[timeIndex]);
 
-					if (eventid == 24) {
-						Event.setAttribute(attENDTIME, next_day + timeArr[0]);
-					} else {
+					if (eventid != 24) {
 						Event.setAttribute(attENDTIME, curr_day + timeArr[eventid]);
+					} else {
+						Event.setAttribute(attENDTIME, next_day + timeArr[0]);
 					}
 					
 					Event.setAttribute(attDURATION, DURATION_TEXT);

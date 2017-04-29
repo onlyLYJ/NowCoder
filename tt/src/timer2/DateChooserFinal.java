@@ -490,11 +490,10 @@ public class DateChooserFinal extends JPanel {
 
 	void commit(final Calendar c) {
 
-		final Calendar calendar = c;
-		showDate.setText(sdf.format(calendar.getTime()));
+		showDate.setText(sdf.format(c.getTime()));
 
 		final Object[] options = { "做7天", "做到这个月底得了", "重选" };
-		final int response = JOptionPane.showOptionDialog(null, "起始日期为: " + sdf.format(calendar.getTime()), "消息提示",
+		final int response = JOptionPane.showOptionDialog(null, "起始日期为: " + sdf.format(c.getTime()), "消息提示",
 				JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
 		if (response == 0) {
@@ -502,9 +501,9 @@ public class DateChooserFinal extends JPanel {
 			showDir();
 			System.exit(-1);
 		} else if (response == 1) {
-			final int d = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-			final int present = calendar.get(Calendar.DAY_OF_MONTH);
-			writeXML(d - present + 1, calendar);
+			final int d = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+			final int present = c.get(Calendar.DAY_OF_MONTH);
+			writeXML(d - present + 1, c);
 			showDir();
 			System.exit(-1);
 		} else if (response == 2) {
