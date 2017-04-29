@@ -21,7 +21,7 @@ public class KMP {
 		}
 
 		if (machted == slen) {
-			printMatch(t, s, slen, tlen, currPos);
+			printMatch(t, s, currPos);
 		} else {
 			System.out.println("No S in T.");
 		}
@@ -35,12 +35,18 @@ public class KMP {
 		int[] next = new int[ls];
 		next[0] = -1;
 
-		while (i < ls) {
+		while (i < ls-1) {
+			
 			if (j == -1 || s[i] == s[j]) {
 				j++;
 				i++;
+				if (s[i] == s[j]) {
+					next[i] = next[j];
+				} else {
+					next[i] = j;
+				}
+				
 			} else {
-				next[i] = next[j];
 				j = next[j];
 			}
 
@@ -67,7 +73,7 @@ public class KMP {
 		}
 
 		if (j >= ls) {
-			printMatch(b, a, ls, lt, i);
+			printMatch(b, a, i);
 		} else {
 			System.out.println("no s in t.");
 		}
@@ -85,7 +91,7 @@ public class KMP {
 	}
 
 	public static void main(String[] args) {
-		String a = "BBABBCAC";
+		String a = "BABBC";
 		String b = "BABBCBBABBCACD";
 
 		System.out.println("KMP");
@@ -97,7 +103,9 @@ public class KMP {
 
 	}
 
-	private static void printMatch(String t, String s, int slen, int tlen, int currPos) {
+	private static void printMatch(String t, String s,int currPos) {
+		int slen = s.length();
+		int tlen = t.length();
 		int beginIndex = currPos - slen;
 		StringBuilder sb = new StringBuilder();
 		sb.append("s is " + s + "\r\nt is " + t + "\r\n");
